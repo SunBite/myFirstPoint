@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=基于Spark的视频语义检测系统
+Comment=SystemDemo Link
+Exec=/home/sunbite/PycharmProjects/myFirstPoint/system.sh
+Icon=/home/sunbite/PycharmProjects/myFirstPoint/pycharm.png
+Terminal=true
+StartupNotify=true
+Type=Application
+Categories=Application;Development;
