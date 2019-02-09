@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from myFirstPoint.DataPreparation import DataPreparation
-import myFirstPoint.MFSSEL_Utilities as Utilities
+from DataPreparation import DataPreparation
+import MFSSEL_Utilities as Utilities
 from sklearn.svm import SVC
 import numpy as np
 import math

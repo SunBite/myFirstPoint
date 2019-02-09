@@ -297,8 +297,14 @@ def _122feature(full_feature):
     return full_feature[0] + full_feature[1] + full_feature[2] + full_feature[3]
 
 
-def _81feature(full_feature):
-    return full_feature[0]
+def _81feature(image):
+    image_hsv = cv.cvtColor(image, cv.COLOR_BGR2HLS_FULL)  # 原始图像转换为HSV图像
+    image_hsv_H = np.array(image_hsv[:, :, 0]) / 255  # HSV色调（Hue）分量
+    image_hsv_S = np.array(image_hsv[:, :, 1]) / 255  # HSV饱和度(Saturation)分量
+    image_hsv_V = np.array(image_hsv[:, :, 2]) / 255  # HSV亮度（Value）分量
+    image_height = image.shape[0]  # 图像的高度值
+    image_width = image.shape[1]  # 图像的宽度值
+    return hsv_features(image_hsv_H, image_hsv_S, image_hsv_V, image_height, image_width)
 
 
 def _30_5_6feature(full_feature):
@@ -309,8 +315,9 @@ def _81_5_6feature(full_feature):
     return full_feature[0] + full_feature[2] + full_feature[1]
 
 
-def _30feature(full_feature):
-    return full_feature[3]
+def _30feature(image):
+    image_gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)  # 原始图像转换为灰度图像
+    return lbp_feature(image_gray)
 
 
 def _5_6feature(full_feature):

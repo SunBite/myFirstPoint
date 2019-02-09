@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from pyspark import SparkConf, SparkContext
+import datetime
+import cv2
+import os
+import math
+import numpy as np
 from KeyFrameExtractor import KeyFrameExtractor
 import datetime
-
 
 class KeyFrameExtractorOnSpark:
 
@@ -45,7 +49,7 @@ class KeyFrameExtractorOnSpark:
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
     KeyFrameExtractorOnSpark(r"file:/home/sunbite/MFSSEL/videopath.txt",
-                             r"/home/sunbite/MFSSEL/keyframe/").keyframeextractor()
+                             r"/home/sunbite/MFSSEL/keyframe_on_spark_1/").keyframeextractor()
     endtime = datetime.datetime.now()
     print('----------------------------------------------------------------------------')
     print('----------------------------------------------------------------------------')

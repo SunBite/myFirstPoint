@@ -44,13 +44,13 @@ class FeaturesExtractor:
         # reshape
         frame = np.reshape(frame, (self.__resizeheight, self.__resizewidth, 3))
         # 获取关键帧的特征
-        myFeature = gf.get_features(frame)
+        #myFeature = gf.get_features(frame)
         # 获取不同组合的特征
         # _122feature = gf._122feature(myFeature)
-        _81feature = gf._81feature(myFeature)
+        _81feature = gf._81feature(frame)
         # _30_5_6feature = gf._30_5_6feature(myFeature)
         # _81_5_6feature = gf._81_5_6feature(myFeature)
-        _30feature = gf._30feature(myFeature)
+        _30feature = gf._30feature(frame)
         # _5_6feature = gf._5_6feature(myFeature)
         # _5feature = gf._5feature(myFeature)
         # _6feature = gf._6feature(myFeature)
@@ -172,12 +172,12 @@ class FeaturesExtractor:
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
     fe.FeaturesExtractor(
-        r"/home/sunbite/MFSSEL/keyframe/",
-        r"/home/sunbite/MFSSEL/features/").featuresExtractor()
+        r"/home/sunbite/MFSSEL/keyframe_not_on_spark/",
+        r"/home/sunbite/MFSSEL/features_not_on_spark/").featuresExtractor()
 
     # fe.FeaturesExtractor(
-    #     r"/home/sunbite/MFSSEL/keyframe/",
-    #     r"/home/sunbite/MFSSEL/features/").getAllVideoFeature()
+    #     r"/home/sunbite/MFSSEL/keyframe_not_on_spark/",
+    #     r"/home/sunbite/MFSSEL/features_not_on_spark/").getAllVideoFeature()
     endtime = datetime.datetime.now()
     print('----------------------------------------------------------------------------')
     print('----------------------------------------------------------------------------')

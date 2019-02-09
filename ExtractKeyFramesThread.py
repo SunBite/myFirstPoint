@@ -53,13 +53,13 @@ class ExtractKeyFramesThread(QThread):
         """
         # 删除关键帧文件夹
         rm_keyframe_stdin, rm_keyframe_stdout, rm_keyframe_stderr = self.ssh.exec_command(
-            'rm -r /home/sunbite/MFSSEL/keyframe')
+            'rm -r /home/sunbite/MFSSEL/keyframe_on_spark')
         print(rm_keyframe_stdout.read())
         print(rm_keyframe_stderr.read())
         if rm_keyframe_stderr:
             # 创建空的关键帧文件夹
             mk_keyframe_stdin, mk_keyframe_stdout, mk_keyframe_stderr = self.ssh.exec_command(
-                'mkdir /home/sunbite/MFSSEL/keyframe')
+                'mkdir /home/sunbite/MFSSEL/keyframe_on_spark')
             print(mk_keyframe_stdout.read())
             print(mk_keyframe_stderr.read())
         # 删除关键帧提取准备的参数文件
@@ -74,15 +74,14 @@ class ExtractKeyFramesThread(QThread):
         :param sendlog:要发送的log信号
         :return:
         """
-        time.sleep(10)
-        # self.deleteAndCreateTmp()
-        # # 关键帧提取参数准备
-        # videopathwriter_stdin, videopathwriter_stdout, videopathwriter_stderr = self.ssh.exec_command(
-        #     'export PATH=/home/sunbite/anaconda3/bin:$PATH;python /home/sunbite/PycharmProjects/myFirstPoint/VideoPathWriter.py')
-        # print(videopathwriter_stdout.read())
-        # # 关键帧提取
-        # keyframeextractoronspark_stdin, keyframeextractoronspark_stdout, keyframeextractoronspark_stderr = self.ssh.exec_command(
-        #     'export PATH=/home/sunbite/anaconda3/bin:$PATH;/home/sunbite/spark-2.1.2/bin/spark-submit --py-files /home/sunbite/PycharmProjects/myFirstPoint/KeyFrameExtractor.py --master local[2] /home/sunbite/PycharmProjects/myFirstPoint/KeyFrameExtractorOnSpark.py')
-        # print(keyframeextractoronspark_stdout.read())
+        self.deleteAndCreateTmp()
+        # 关键帧提取参数准备
+        videopathwriter_stdin, videopathwriter_stdout, videopathwriter_stderr = self.ssh.exec_command(
+            'export PATH=/home/sunbite/anaconda3/bin:$PATH;python /home/sunbite/PycharmProjects/myFirstPoint/VideoPathWriter.py')
+        print(videopathwriter_stdout.read())
+        # 关键帧提取
+        keyframeextractoronspark_stdin, keyframeextractoronspark_stdout, keyframeextractoronspark_stderr = self.ssh.exec_command(
+            'export PATH=/home/sunbite/anaconda3/bin:$PATH;/home/sunbite/spark-2.1.2/bin/spark-submit --py-files /home/sunbite/PycharmProjects/myFirstPoint/KeyFrameExtractor.py --master local[2] /home/sunbite/PycharmProjects/myFirstPoint/KeyFrameExtractorOnSpark.py')
+        print(keyframeextractoronspark_stdout.read())
 
         sendlog.emit("关键帧提取完成。")

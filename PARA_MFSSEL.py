@@ -37,7 +37,7 @@ def PARA_MFSSEL(featureNameDirPath, savePath=None, trainAndTestFlag="train"):
     # 迭代次数
     loop_num = 100
 
-    num = 0.65
+    num = 0
     #0.6
     # 训练
     if trainAndTestFlag == "train":

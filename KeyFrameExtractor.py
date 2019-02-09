@@ -88,7 +88,7 @@ class KeyFrameExtractor:
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    KeyFrameExtractor = KeyFrameExtractor(r"/home/sunbite/MFSSEL/action_youtube/", r"/home/sunbite/MFSSEL/keyframe")
+    KeyFrameExtractor = KeyFrameExtractor(r"/home/sunbite/MFSSEL/action_youtube/", r"/home/sunbite/MFSSEL/keyframe_not_on_spark_1")
     KeyFrameExtractor.keyframeextractor()
     endtime = datetime.datetime.now()
     print('----------------------------------------------------------------------------')

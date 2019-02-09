@@ -7,11 +7,9 @@ import os
 import datetime
 
 
-def KFold_MFSSEL(featureNameDirPath, savePath=None, trainAndTestFlag="train"):
-
-    # 初始化dataPreparation对象
-    dataPreparation = DataPreparation()
-    train_test_tuple_list = dataPreparation.getLabelAndNameTupleList_KFold(featureNameDirPath)
+def KFold_MFSSEL_On_Spark(X_train_hsv, Y_train_hsv, X_test_hsv, Y_test_hsv, X_train_lbp, Y_train_lbp, X_test_lbp,
+                          Y_test_lbp, X_train_hog, Y_train_hog, X_test_hog, Y_test_hog, savePath=None,
+                          trainAndTestFlag="train"):
     # 每个类别的初始准确率
     first_class_1_accuracy_list = []
     first_class_2_accuracy_list = []
@@ -402,9 +400,9 @@ def KFold_MFSSEL(featureNameDirPath, savePath=None, trainAndTestFlag="train"):
     print("---------------------------------------------------")
     print("整体初始平均准确率：")
     a = [avg_first_class_1_accuracy, avg_first_class_2_accuracy, avg_first_class_3_accuracy, avg_first_class_4_accuracy,
-     avg_first_class_5_accuracy, avg_first_class_6_accuracy, avg_first_class_7_accuracy, avg_first_class_8_accuracy,
-     avg_first_class_9_accuracy, avg_first_class_10_accuracy, avg_first_class_11_accuracy]
-    print(sum(a)/len(a))
+         avg_first_class_5_accuracy, avg_first_class_6_accuracy, avg_first_class_7_accuracy, avg_first_class_8_accuracy,
+         avg_first_class_9_accuracy, avg_first_class_10_accuracy, avg_first_class_11_accuracy]
+    print(sum(a) / len(a))
     print(sum(whole_first_accuracy_list) / len(whole_first_accuracy_list))
     print("---------------------------------------------------")
     print("整体平均准确率：")
@@ -416,7 +414,6 @@ def KFold_MFSSEL(featureNameDirPath, savePath=None, trainAndTestFlag="train"):
 
 
 if __name__ == '__main__':
-
     starttime = datetime.datetime.now()
     KFold_MFSSEL("/home/sunbite/MFSSEL/features_not_on_spark_for_mfssel/", "/home/sunbite/MFSSEL/model_test/")
     endtime = datetime.datetime.now()

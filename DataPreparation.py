@@ -48,7 +48,7 @@ class DataPreparation:
                             testlabelList.append(labelIndex)
         # 训练集和测试集比例为9：1
         unlabeled_x, labeled_x, unlabeled_y, labeled_y = train_test_split(trainnameList, trainlabelList,
-                                                                          test_size=0.36,
+                                                                          test_size=0.54,
                                                                           stratify=trainlabelList,
                                                                           random_state=2)  # 2 0.2 0.36 0.54
         # 有标签数据的标签和名字的Tuplelist
@@ -133,7 +133,7 @@ class DataPreparation:
             unlabeled_x, labeled_x, unlabeled_y, labeled_y = train_test_split(X_train, Y_train,
                                                                               test_size=0.54,
                                                                               stratify=Y_train,
-                                                                              random_state=2)
+                                                                              random_state=2)# 0.2 0.81  0.36 0.8 0.54 0.7
             # 有标签数据的标签和名字的Tuplelist
             Label_Name_Labeled_train_tuple_list = self.__get_Y_X_tuple_list(labeled_y, labeled_x)
             # 无标签数据的标签和名字Tuplelist

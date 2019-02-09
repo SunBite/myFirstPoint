@@ -407,7 +407,7 @@ def get_topk_Y_index(c, topk, voted_predict_Y_list, voted_index_result, hog_svc_
     return voted_Y, voted_index
 
 
-def predict_Y(hog_svc_probilities, _81_svc_probilities, _30_svc_probilities, hog_svc_predict_Y, _81_svc_predict_Y,
+def predict_Y_train(hog_svc_probilities, _81_svc_probilities, _30_svc_probilities, hog_svc_predict_Y, _81_svc_predict_Y,
               _30_svc_predict_Y):
     """
     根据三个分类器分别对同一个样本进行预测，
@@ -433,6 +433,51 @@ def predict_Y(hog_svc_probilities, _81_svc_probilities, _30_svc_probilities, hog
         predict_Y_list.append(every_predict_Y[index_max_confidence])
     return predict_Y_list
 
+def predict_Y_test(probility_list, predict_Y_list, whole_class, para):
+    hog_probilities, _81_probilities, _30_probilities = probility_list
+    hog_predict_Y_list, _81_predict_Y_list, _30_predict_Y_list = predict_Y_list
+
+    hog_svc_confidence_list = []
+    _81_svc_confidence_list = []
+    _30_svc_confidence_list = []
+
+    hog_label_vector_list = []
+    _81_label_vector_list = []
+    _30_label_vector_list = []
+    # 获取置信度
+    for hog_svc_probility in hog_probilities:
+        hog_svc_confidence_list.append(get_confidence(hog_svc_probility, para))
+    for _81_svc_probility in _81_probilities:
+        _81_svc_confidence_list.append(get_confidence(_81_svc_probility, para))
+    for _30_svc_probility in _30_probilities:
+        _30_svc_confidence_list.append(get_confidence(_30_svc_probility, para))
+
+    for hog_predict_Y in hog_predict_Y_list:
+        hog_label_vector_list.append(get_label_vector(hog_predict_Y, whole_class))
+    for _81_predict_Y in _81_predict_Y_list:
+        _81_label_vector_list.append(get_label_vector(_81_predict_Y, whole_class))
+    for _30_predict_Y in _30_predict_Y_list:
+        _30_label_vector_list.append(get_label_vector(_30_predict_Y, whole_class))
+
+    hog_svc_confidence_list = np.asarray(hog_svc_confidence_list)
+    _81_svc_confidence_list = np.asarray(_81_svc_confidence_list)
+    _30_svc_confidence_list = np.asarray(_30_svc_confidence_list)
+
+    hog_label_vector_list_T = np.asarray(hog_label_vector_list).T
+    _81_label_vector_list_T = np.asarray(_81_label_vector_list).T
+    _30_label_vector_list_T = np.asarray(_30_label_vector_list).T
+
+    hog_vector_m_c = np.multiply(hog_svc_confidence_list, hog_label_vector_list_T).T
+    _81_vector_m_c = np.multiply(_81_svc_confidence_list, _81_label_vector_list_T).T
+    _30_vector_m_c = np.multiply(_30_svc_confidence_list, _30_label_vector_list_T).T
+
+    vector_m_c = hog_vector_m_c + _81_vector_m_c + _30_vector_m_c
+
+    pesudo_label = []
+    max_confidence_list = []
+    for i in vector_m_c:
+        pesudo_label.append(np.argwhere(i == np.max(i))[0][0] + 1)
+    return pesudo_label
 
 def get_each_class_accuracy(predict_Y, real_Y):
     """
@@ -563,11 +608,11 @@ def get_pesudo_label(probility_list, predict_Y_list, unlabeled_Y_list, whole_cla
         _30_svc_confidence_list.append(get_confidence(_30_svc_probility, para))
 
     for hog_predict_Y in hog_predict_Y_list:
-        hog_label_vector_list.append(get_label_vector(hog_predict_Y, whole_class))
+        hog_label_vector_list.append(get_label_vector(int(hog_predict_Y), whole_class))
     for _81_predict_Y in _81_predict_Y_list:
-        _81_label_vector_list.append(get_label_vector(_81_predict_Y, whole_class))
+        _81_label_vector_list.append(get_label_vector(int(_81_predict_Y), whole_class))
     for _30_predict_Y in _30_predict_Y_list:
-        _30_label_vector_list.append(get_label_vector(_30_predict_Y, whole_class))
+        _30_label_vector_list.append(get_label_vector(int(_30_predict_Y), whole_class))
 
     hog_svc_confidence_list = np.asarray(hog_svc_confidence_list)
     _81_svc_confidence_list = np.asarray(_81_svc_confidence_list)
